@@ -1,0 +1,24 @@
+@echo off
+title KameraRestartLoop
+color 0A
+
+:loop
+cls
+echo [%date% %time%] === RESTART KAMERA APLIKACE ===
+echo.
+
+echo Zabijim Kamera app procesy...
+taskkill /IM WindowsCamera.exe /F >nul 2>&1
+taskkill /IM Video.UI.exe /F >nul 2>&1
+taskkill /IM ApplicationFrameHost.exe /F >nul 2>&1
+timeout /t 3 /nobreak >nul
+
+echo Spoustim Kamera aplikaci...
+start microsoft.windows.camera:
+
+echo [%date% %time%] === RESTART DOKONCEN ===
+echo Cekam 6 hodin (skryte)...
+echo.
+
+timeout /t 21600 /nobreak >nul
+goto loop
