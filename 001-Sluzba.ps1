@@ -39,6 +39,21 @@ Get-Service -Name $VPN | Format-Table Name, Status, StartType -AutoSize
 
 
 
+ 
+Bat soubor pro spuštění
+
+@echo off
+title VPN Služba Přepínač
+color 0A
+powershell -c "schtasks /run /tn 'VPN-Xbox Live Auth Manager' /f"
+timeout /t 3 >nul
+cls
+powershell -c "Get-Service 'Xbox Live Auth Manager' | ft Name,Status -AutoSize"
+echo.
+echo Stiskni klavesu pro konec...
+pause >nul
+
+
 
 
 
