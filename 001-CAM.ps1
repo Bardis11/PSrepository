@@ -13,6 +13,7 @@
 >> Start-Process "ms-windows-camera:"
 >>
 >> Write-Host "Camera app restartována! Otevřete ji a otestujte kameru." -ForegroundColor Green
+
 >>
 
 
@@ -20,8 +21,9 @@
 Pokus 2 bat skript
 
 @echo off
-title Kamera-Restart-%random%-%time:~0,2%%time:~3,2%
+title Kamera-Restart-Loop
 color 0A
+set cas=15
 
 :loop
 cls
@@ -37,14 +39,12 @@ timeout /t 3 /nobreak >nul
 echo Spoustim Kamera aplikaci...
 start microsoft.windows.camera:
 
-echo [%date% %time%] === RESTART DOKONCEN ===
-echo Cekam 6 hodin (skryte)...
-echo.
+echo [%date% %time%]  RESTART DOKONCEN 
+echo Cekam %cas%...
+timeout /t %cas% /nobreak >nul
+goto loop
 
-REM SKRYPANI CMD - nevidi se 6 hodin
-start /min cmd /c "timeout /t 21600 /nobreak >nul & taskkill /FI "WINDOWTITLE eq Kamera-Restart-*%random%" /F >nul 2>&1"
 
-REM Ukonci TOTO CMD okno
-taskkill /FI "WINDOWTITLE eq Kamera-Restart-%random%-%time:~0,2%%time:~3,2%" /F >nul 2>&1
-exit
+
+
 
